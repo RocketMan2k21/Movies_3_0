@@ -18,7 +18,7 @@ object RetrofitModule {
 
     @Provides
     @Singleton
-    private fun provideRetrofit(baseUrl: String): Retrofit {
+    fun provideRetrofit(baseUrl: String): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
