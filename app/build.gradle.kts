@@ -92,4 +92,6 @@ dependencies {
 
     implementation(libs.androidx.paging.runtime.ktx)
 
+    implementation(libs.androidx.navigation.compose)
+
 }
