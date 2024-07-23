@@ -1,8 +1,6 @@
-package com.romahduda.movies30.data.model.repository
+package com.romahduda.movies30.data.repositories
 
-import Movie
-import com.romahduda.movies30.data.model.MoviesApi
-import kotlinx.coroutines.flow.Flow
+import com.romahduda.movies30.data.api.MoviesApi
 import javax.inject.Inject
 
 class MovieRepository @Inject constructor(

@@ -1,4 +1,4 @@
-package com.romahduda.movies30.data.model
+package com.romahduda.movies30.data.api
 
 import Movie
 import kotlinx.coroutines.flow.Flow

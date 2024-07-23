@@ -1,6 +1,6 @@
 package com.romahduda.movies30.di
 
-import com.romahduda.movies30.data.model.MoviesApi
+import com.romahduda.movies30.data.api.MoviesApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,6 +27,6 @@ object RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): MoviesApi= retrofit.create(MoviesApi::class.java)
+    fun provideApiService(retrofit: Retrofit): MoviesApi = retrofit.create(MoviesApi::class.java)
 
 }
