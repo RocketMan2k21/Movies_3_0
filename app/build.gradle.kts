@@ -11,6 +11,14 @@ android {
     compileSdk = 34
 
     defaultConfig {
+        buildConfigField(
+            "String",
+            "MOVIES_API_KEY",
+            "\"${project.findProperty("MOVIES_API_KEY")}\""
+        )
+        buildFeatures {
+            buildConfig = true
+        }
         applicationId = "com.romahduda.movies30"
         minSdk = 24
         targetSdk = 34
