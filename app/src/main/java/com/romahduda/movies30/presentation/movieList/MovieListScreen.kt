@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -19,23 +20,17 @@ fun MovieScreen(
     navigateToMoviesDetailsScreen: (Int) -> Unit,
     sharedViewModel : MovieViewModel
 ) {
-    val context = LocalContext.current
-    val movies = sharedViewModel.moviesPagingFlow.collectAsLazyPagingItems()
-    LaunchedEffect(key1 = movies.loadState) {
-        if(movies.loadState.refresh is LoadState.Error) {
-            Toast.makeText(
-                context,
-                "Error: " + (movies.loadState.refresh as LoadState.Error).error.message,
-                Toast.LENGTH_LONG
-            ).show()
-        }
 
-    }
+    val movies = sharedViewModel.moviesPagingFlow.collectAsLazyPagingItems()
+
     Box(modifier = Modifier.fillMaxSize()){
         if(movies.loadState.refresh is LoadState.Loading){
             CircularProgressIndicator(
                 modifier = Modifier.align(Alignment.Center)
             )
+        }
+        if(movies.loadState.refresh is LoadState.Error) {
+            EmptyContent()
         }else{
                 GridContent(
                     movies = movies,
@@ -44,5 +39,17 @@ fun MovieScreen(
             }
         }
 }
+
+@Composable
+fun EmptyContent(){
+    Box(modifier = Modifier.fillMaxSize()){
+        Text(
+            modifier = Modifier.align(Alignment.Center),
+            text = "Connection Error. Check Your Network Settings"
+        )
+    }
+}
+
+
 
 

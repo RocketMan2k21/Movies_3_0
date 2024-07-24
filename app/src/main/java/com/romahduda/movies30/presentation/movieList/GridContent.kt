@@ -1,6 +1,7 @@
 package com.romahduda.movies30.presentation.movieList
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +16,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,6 +55,14 @@ fun GridContent(
             if(movies.loadState.append is LoadState.Loading){
                 CircularProgressIndicator()
             }
+            if(movies.loadState.append is LoadState.Error){
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    Text(
+                        modifier = Modifier.align(Alignment.Center),
+                        text = "Something Went Wrong"
+                    )
+                }
+            }
         }
     }
 }
@@ -68,7 +78,7 @@ fun MovieItem(
         elevation = CardDefaults.cardElevation()
     ){
         Column(
-            modifier = Modifier.padding(8.dp)
+
         ) {
             AsyncImage(
                 model = IMAGE_TMDB_BASE_URL + movie.poster_path,
