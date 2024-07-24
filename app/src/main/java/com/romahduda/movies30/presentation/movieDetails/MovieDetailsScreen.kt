@@ -1,4 +1,4 @@
-package com.romahduda.movies30.presentation.viewmodels.movieDetails
+package com.romahduda.movies30.presentation.movieDetails
 
 import android.util.Log
 import android.widget.Toast

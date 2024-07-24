@@ -1,4 +1,4 @@
-package com.romahduda.movies30.presentation.viewmodels.movieList
+package com.romahduda.movies30.presentation.movieList
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme

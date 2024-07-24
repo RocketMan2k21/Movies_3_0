@@ -8,7 +8,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.romahduda.movies30.presentation.viewmodels.MovieViewModel
-import com.romahduda.movies30.presentation.viewmodels.movieDetails.MovieDetailsScreen
+import com.romahduda.movies30.presentation.movieDetails.MovieDetailsScreen
 import com.romahduda.movies30.util.Constants.MOVIES_ARGUMENT_KEY
 import com.romahduda.movies30.util.Constants.MOVIES_DETAILS_SCREEN
 

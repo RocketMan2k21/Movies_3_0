@@ -1,4 +1,4 @@
-package com.romahduda.movies30.presentation.viewmodels.movieList
+package com.romahduda.movies30.presentation.movieList
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
