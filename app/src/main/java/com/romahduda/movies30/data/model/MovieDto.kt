@@ -2,8 +2,8 @@ package com.romahduda.movies30.data.model
 
 data class MovieDto (
     val id               : Int,
-    val posterPath       : String?,
-    val releaseDate      : String,
+    val poster_path       : String?,
+    val release_date      : String?,
     val title            : String,
-    val voteAverage      : Double
+    val vote_average      : Double
 )

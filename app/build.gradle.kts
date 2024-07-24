@@ -53,6 +53,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -70,6 +71,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.paging.testing.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -90,8 +92,20 @@ dependencies {
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
 
+    // Paging
     implementation(libs.androidx.paging.runtime.ktx)
+    implementation(platform("androidx.compose:compose-bom:2024.06.00"))
+    implementation("androidx.paging:paging-compose:3.3.0-alpha05")
 
+    // Coil
+    implementation("io.coil-kt:coil-compose:2.7.0")
+
+    // Navigation
     implementation(libs.androidx.navigation.compose)
 
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.0-M2")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0-RC")
+
+    testImplementation(kotlin("test"))
 }
+

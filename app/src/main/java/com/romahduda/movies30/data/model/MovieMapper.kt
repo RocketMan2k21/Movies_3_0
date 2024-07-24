@@ -6,10 +6,10 @@ import com.romahduda.movies30.domain.MovieDetails
 fun MovieDto.toMovie(): Movie {
     return Movie(
         id = id,
-        posterPath  = posterPath,
-        releaseDate = releaseDate,
+        poster_path  = poster_path,
+        release_date = release_date,
         title    = title,
-        voteAverage = voteAverage,
+        vote_average = vote_average,
     )
 }
 

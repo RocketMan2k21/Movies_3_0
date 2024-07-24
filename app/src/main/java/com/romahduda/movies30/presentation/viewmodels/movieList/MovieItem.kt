@@ -34,7 +34,7 @@ fun MovieItem(
             modifier = Modifier.padding(8.dp)
         ) {
             AsyncImage(
-                model = IMAGE_TMDB_BASE_URL + movie.posterPath,
+                model = IMAGE_TMDB_BASE_URL + movie.poster_path,
                 contentDescription = movie.title,
                 modifier = Modifier
                     .height(300.dp)
@@ -48,7 +48,7 @@ fun MovieItem(
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = movie.releaseDate.split("-")[0], // Only showing the year
+                text = movie.release_date!!.split("-")[0], // Only showing the year
                 modifier = Modifier.padding(horizontal = 8.dp)
             )
         }
@@ -63,10 +63,10 @@ fun MovieItemPreview() {
         MovieItem(
             movie = Movie(
                 id = 1,
-                posterPath = "Some Movie here",
-                releaseDate = "2024-07-24",
+                poster_path = "Some Movie here",
+                release_date = "2024-07-24",
                 title = "Be Drunk",
-                voteAverage = 6.4
+                vote_average = 6.4
             ),
             modifier = Modifier.fillMaxWidth()
         )
