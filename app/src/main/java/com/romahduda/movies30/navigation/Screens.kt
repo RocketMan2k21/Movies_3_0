@@ -11,6 +11,6 @@ class Screens(navController: NavHostController) {
     }
 
     val movieDetails: (Int) -> Unit = {movieId ->
-        navController.navigate("movie/$movieId")
+        navController.navigate("movies/$movieId")
     }
 }

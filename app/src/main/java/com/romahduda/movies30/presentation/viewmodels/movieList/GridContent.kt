@@ -1,25 +1,62 @@
 package com.romahduda.movies30.presentation.viewmodels.movieList
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.LocalTextStyle
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
 import coil.compose.AsyncImage
 import com.romahduda.movies30.domain.Movie
 import com.romahduda.movies30.ui.theme.Movies30Theme
 import com.romahduda.movies30.util.Constants.IMAGE_TMDB_BASE_URL
+
+@Composable
+fun GridContent(
+    movies: LazyPagingItems<Movie>,
+    navigateToMoviesDetailsScreen: (Int) -> Unit
+) {
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(minSize = 150.dp),
+        contentPadding = PaddingValues(8.dp),
+        modifier = Modifier.fillMaxSize()
+    ) {
+        items(
+            count = movies.itemCount,
+            ) { index ->
+            val movie = movies[index]
+            movie?.let {
+                MovieItem(
+                    movie = it,
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .clickable { navigateToMoviesDetailsScreen(it.id) }
+                )
+            }
+        }
+        item{
+            if(movies.loadState.append is LoadState.Loading){
+                CircularProgressIndicator()
+            }
+        }
+    }
+}
+
 
 @Composable
 fun MovieItem(

@@ -16,10 +16,10 @@ fun MovieDto.toMovie(): Movie {
 fun MovieDetailsDto.toMovieDetails(): MovieDetails {
     return MovieDetails(
         id = id,
-        posterPath  = posterPath,
-        releaseDate = releaseDate,
+        posterPath  = poster_path,
+        releaseDate = release_date,
         title    = title,
-        voteAverage = voteAverage,
+        voteAverage = vote_average,
         overview = overview,
         runtime = runtime,
         budget = budget,

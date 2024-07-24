@@ -1,12 +1,13 @@
 package com.romahduda.movies30.data.repository
 
+import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.map
+import com.romahduda.movies30.BuildConfig
 import com.romahduda.movies30.data.api.MoviesApi
 import com.romahduda.movies30.data.model.MovieDto
 import com.romahduda.movies30.data.model.toMovie
 import com.romahduda.movies30.data.model.toMovieDetails
-import com.romahduda.movies30.domain.MovieDetails
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -22,9 +23,8 @@ class MovieRepoImpl @Inject constructor(
                 pager.map { it.toMovie() }
             }
 
-
-    override fun getMovieById(movieId: Int) = flow<MovieDetails>{
-        moviesApi.getMovieById(movieId).toMovieDetails()
+    override fun getMovieById(movieId: Int) = flow{
+        emit(moviesApi.getMovieById(movieId, BuildConfig.MOVIES_API_KEY).toMovieDetails())
     }
 
 

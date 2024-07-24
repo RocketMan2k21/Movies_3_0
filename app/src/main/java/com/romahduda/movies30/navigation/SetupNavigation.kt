@@ -6,12 +6,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.romahduda.movies30.navigation.destinations.movieDetailsComposable
 import com.romahduda.movies30.navigation.destinations.movieListComposable
+import com.romahduda.movies30.presentation.viewmodels.MovieViewModel
 
 import com.romahduda.movies30.util.Constants.MOVIES_SCREEN
 
 @Composable
 fun SetupNavigation(
-    navController: NavHostController
+    navController: NavHostController,
+    movieViewModel: MovieViewModel
 ){
 
     val screen = remember(navController){
@@ -23,10 +25,12 @@ fun SetupNavigation(
         startDestination = MOVIES_SCREEN
     ){
         movieListComposable(
-            navigateToMoviesDetailsScreen = screen.movieDetails
+            navigateToMoviesDetailsScreen = screen.movieDetails,
+            sharedViewModel = movieViewModel
         )
         movieDetailsComposable(
-            navigateToMovieListScreen = screen.movies
+            navigateToMovieListScreen = screen.movies,
+            sharedViewModel = movieViewModel
         )
     }
 }

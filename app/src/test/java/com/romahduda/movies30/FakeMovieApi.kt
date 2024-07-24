@@ -5,11 +5,18 @@ import com.romahduda.data.model.MovieResponseDto
 import com.romahduda.movies30.data.api.MoviesApi
 import com.romahduda.movies30.data.model.MovieDetailsDto
 import com.romahduda.movies30.data.model.MovieDto
+import com.romahduda.movies30.domain.Movie
 import java.util.Arrays
 
 class FakeMovieApi: MoviesApi {
     private val movies = arrayListOf<MovieDto>()
     private val movieFactory: MovieFactory = MovieFactory()
+
+    private var movieById : MovieDetailsDto? = null
+
+    fun addMovieById(movie: MovieDetailsDto){
+        movieById = movie
+    }
 
     fun addMovie(movie: MovieDto){
         movies.add(movie)
@@ -26,7 +33,7 @@ class FakeMovieApi: MoviesApi {
         )
     }
 
-    override suspend fun getMovieById(id: Int): MovieDetailsDto {
-        TODO("Not yet implemented")
+    override suspend fun getMovieById(id: Int, apiKey: String): MovieDetailsDto {
+        return movieById!!
     }
 }
