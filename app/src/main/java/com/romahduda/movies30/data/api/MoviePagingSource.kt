@@ -18,25 +18,17 @@ class MoviePagingSource(
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
-
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieDto> {
         try {
-            // Start refresh at page 1 if undefined.
             val nextPageNumber = params.key ?: 1
             val response = moviesApi.getMoviesByPage(nextPageNumber, BuildConfig.MOVIES_API_KEY)
             return LoadResult.Page(
                 data = response.results,
-                prevKey = null, // Only paging forward.
+                prevKey = null,
                 nextKey = response.page?.plus(1)
             )
-        } catch (e: IOException) {
-            // IOException for network failures.
-            return LoadResult.Error(e)
-        } catch (e: HttpException) {
-            // HttpException for any non-2xx HTTP status codes.
+        } catch (e: Exception) {
             return LoadResult.Error(e)
         }
     }
-
-
 }

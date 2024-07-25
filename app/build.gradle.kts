@@ -84,6 +84,11 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.44")
+    kspAndroidTest("com.google.dagger:hilt-android-compiler:2.44")
+    testImplementation("com.google.dagger:hilt-android-testing:2.44")
+    kspTest("com.google.dagger:hilt-android-compiler:2.44")
+
     // Glide
     implementation (libs.glide)
     ksp (libs.compiler)
@@ -107,5 +112,6 @@ dependencies {
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0-RC")
 
     testImplementation(kotlin("test"))
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:2.0.0")
 }
 
