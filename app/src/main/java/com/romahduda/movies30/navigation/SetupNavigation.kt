@@ -29,7 +29,6 @@ fun SetupNavigation(
             sharedViewModel = movieViewModel
         )
         movieDetailsComposable(
-            navigateToMovieListScreen = screen.movies,
             sharedViewModel = movieViewModel
         )
     }

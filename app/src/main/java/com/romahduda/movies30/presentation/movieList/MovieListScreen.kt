@@ -1,15 +1,12 @@
 package com.romahduda.movies30.presentation.movieList
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.romahduda.movies30.presentation.viewmodels.MovieViewModel
@@ -20,7 +17,6 @@ fun MovieScreen(
     navigateToMoviesDetailsScreen: (Int) -> Unit,
     sharedViewModel : MovieViewModel
 ) {
-
     val movies = sharedViewModel.moviesPagingFlow.collectAsLazyPagingItems()
 
     Box(modifier = Modifier.fillMaxSize()){
@@ -30,9 +26,10 @@ fun MovieScreen(
             )
         }
         if(movies.loadState.refresh is LoadState.Error) {
-            EmptyContent()
-        }else{
-                GridContent(
+            ErrorNetworkContent()
+        }
+        else{
+            GridContent(
                     movies = movies,
                     navigateToMoviesDetailsScreen = navigateToMoviesDetailsScreen
                 )
@@ -41,7 +38,7 @@ fun MovieScreen(
 }
 
 @Composable
-fun EmptyContent(){
+fun ErrorNetworkContent(){
     Box(modifier = Modifier.fillMaxSize()){
         Text(
             modifier = Modifier.align(Alignment.Center),

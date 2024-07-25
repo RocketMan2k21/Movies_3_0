@@ -6,13 +6,13 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class MovieFactory {
     private val counter = AtomicInteger(0)
-    fun createMovie() : MovieDto {
+    fun createMovie(movieTitle: String) : MovieDto {
         val id = counter.incrementAndGet()
         val movie = MovieDto(
             id = id,
             poster_path = "poster_path $id",
             release_date = "release_date $id",
-            title   = "title $id",
+            title   = movieTitle,
             vote_average  = 10.0
         )
         return movie

@@ -3,6 +3,7 @@ package com.romahduda.movies30.data.repository
 import androidx.paging.PagingData
 import com.romahduda.movies30.domain.Movie
 import com.romahduda.movies30.domain.MovieDetails
+import com.romahduda.movies30.util.RequestState
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepo {

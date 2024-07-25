@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Card
@@ -19,7 +20,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
@@ -59,7 +62,7 @@ fun GridContent(
                 Box(modifier = Modifier.fillMaxWidth()) {
                     Text(
                         modifier = Modifier.align(Alignment.Center),
-                        text = "Something Went Wrong"
+                        text = "Loading Error"
                     )
                 }
             }
@@ -77,30 +80,34 @@ fun MovieItem(
         modifier = modifier,
         elevation = CardDefaults.cardElevation()
     ){
+        AsyncImage(
+            model = IMAGE_TMDB_BASE_URL + movie.poster_path,
+            contentDescription = movie.title,
+            modifier = Modifier
+                .height(300.dp)
+                .fillMaxWidth(),
+            contentScale = ContentScale.Crop
+        )
         Column(
-
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth()
         ) {
-            AsyncImage(
-                model = IMAGE_TMDB_BASE_URL + movie.poster_path,
-                contentDescription = movie.title,
-                modifier = Modifier
-                    .height(300.dp)
-                    .fillMaxWidth(),
-                contentScale = ContentScale.Crop
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = movie.title,
-                modifier = Modifier.padding(horizontal = 8.dp)
-            )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = movie.release_date!!.split("-")[0], // Only showing the year
                 modifier = Modifier.padding(horizontal = 8.dp)
             )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = movie.title,
+                modifier = Modifier
+                    .padding(horizontal = 8.dp),
+                maxLines = 2,
+                minLines = 2
+            )
         }
     }
-
 }
 
 @Preview

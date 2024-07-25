@@ -13,7 +13,6 @@ import com.romahduda.movies30.util.Constants.MOVIES_ARGUMENT_KEY
 import com.romahduda.movies30.util.Constants.MOVIES_DETAILS_SCREEN
 
 fun NavGraphBuilder.movieDetailsComposable(
-    navigateToMovieListScreen: () -> Unit,
     sharedViewModel: MovieViewModel
 ) {
     composable(
@@ -31,7 +30,6 @@ fun NavGraphBuilder.movieDetailsComposable(
         val selectedMovie by sharedViewModel.movieDetails.collectAsState()
 
         MovieDetailsScreen(
-            navigateToMovieListScreen = navigateToMovieListScreen,
             movie = selectedMovie
         )
 
