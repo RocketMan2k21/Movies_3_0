@@ -47,12 +47,16 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
     buildFeatures {
         compose = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
+
 
     packaging {
         resources {
@@ -84,11 +88,6 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.44")
-    kspAndroidTest("com.google.dagger:hilt-android-compiler:2.44")
-    testImplementation("com.google.dagger:hilt-android-testing:2.44")
-    kspTest("com.google.dagger:hilt-android-compiler:2.44")
-
     // Glide
     implementation (libs.glide)
     ksp (libs.compiler)
@@ -113,5 +112,16 @@ dependencies {
 
     testImplementation(kotlin("test"))
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:2.0.0")
+
+    testImplementation("app.cash.turbine:turbine:0.7.0")
+    testImplementation("io.mockk:mockk:1.12.3")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0-RC")
+
+    testImplementation ("androidx.arch.core:core-testing:2.1.0")
+
+    androidTestImplementation("androidx.navigation:navigation-testing:2.7.7")
+
 }
 

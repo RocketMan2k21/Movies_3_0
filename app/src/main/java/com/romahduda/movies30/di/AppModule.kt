@@ -7,6 +7,7 @@ import com.romahduda.movies30.data.api.MoviesApi
 import com.romahduda.movies30.data.model.MovieDto
 import com.romahduda.movies30.data.repository.MovieRepo
 import com.romahduda.movies30.data.repository.MovieRepoImpl
+import com.romahduda.movies30.util.Constants.MOVIE_BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,13 +21,10 @@ import javax.inject.Singleton
 object AppModule {
 
     @Provides
-    fun provideBaseUrl():String =  "https://api.themoviedb.org/3/"
-
-    @Provides
     @Singleton
-    fun provideRetrofit(baseUrl: String): Retrofit {
+    fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(MOVIE_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

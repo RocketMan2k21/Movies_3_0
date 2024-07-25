@@ -4,6 +4,8 @@ import com.romahduda.data.model.MovieResponseDto
 import com.romahduda.movies30.data.api.MoviesApi
 import com.romahduda.movies30.data.model.MovieDetailsDto
 import com.romahduda.movies30.data.model.MovieDto
+import okhttp3.RequestBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.HttpException
 import retrofit2.Response
 
@@ -42,7 +44,7 @@ class FakeMovieApi: MoviesApi {
         if (!returnsError){
             return movieById!!
         }else{
-            throw HttpException(Response.error<MovieDetailsDto>(400, null))
+            throw HttpException(Response.error<MovieDetailsDto>(400, "".toResponseBody()))
         }
     }
 }

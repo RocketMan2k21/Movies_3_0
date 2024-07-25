@@ -5,6 +5,7 @@ import androidx.paging.testing.asPagingSourceFactory
 import com.romahduda.movies30.data.repository.MovieRepo
 import com.romahduda.movies30.domain.Movie
 import com.romahduda.movies30.domain.MovieDetails
+import com.romahduda.movies30.util.RequestState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
@@ -13,7 +14,7 @@ class FakeMyRepository : MovieRepo {
     private val items = (0..100).map {
         Movie(
             id = it,
-            title = "Movie $it",
+            title = "title $it",
             vote_average = 5.0,
             release_date = "2022-01-01",
             poster_path = "/path$it"
@@ -22,7 +23,7 @@ class FakeMyRepository : MovieRepo {
 
     private val pagingSourceFactory = items.asPagingSourceFactory()
 
-    override fun getMovieById(movieId: Int): Flow<MovieDetails> {
+    override fun getMovieById(movieId: Int): Flow<RequestState<MovieDetails>> {
         val movieDetails = MovieDetails(
             id = movieId,
             title = "Movie $movieId",
@@ -35,7 +36,7 @@ class FakeMyRepository : MovieRepo {
             tagline = "Tagline $movieId",
             posterPath = "/path$movieId"
         )
-        return flowOf(movieDetails)
+        return flowOf(RequestState.Success(movieDetails))
     }
 
     override fun getPagingMovieFlow(): Flow<PagingData<Movie>> {
