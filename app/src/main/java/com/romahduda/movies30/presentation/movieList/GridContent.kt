@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -54,19 +55,27 @@ fun GridContent(
                 )
             }
         }
-        item{
-            if(movies.loadState.append is LoadState.Loading){
-                CircularProgressIndicator()
-            }
-            if(movies.loadState.append is LoadState.Error){
-                Box(modifier = Modifier.fillMaxWidth()) {
-                    Text(
-                        modifier = Modifier.align(Alignment.Center),
-                        text = "Loading Error"
-                    )
+        movies.apply {
+            when (loadState.append) {
+                is LoadState.Loading -> {
+                    item(span = { GridItemSpan(maxLineSpan) }) {
+                        CircularProgressIndicator()
+                    }
+                }
+                is LoadState.Error -> {
+                    item(span = { GridItemSpan(maxLineSpan) }) {
+                        LoadingError()
+                    }
+                }
+                is LoadState.NotLoading -> {
+                    if(loadState.append.endOfPaginationReached) {
+                        item(span = {GridItemSpan(maxLineSpan)}) {
+                            EndOfPaginationReachedMessage()
+                        }
+                    }
+                }
                 }
             }
-        }
     }
 }
 
@@ -107,6 +116,26 @@ fun MovieItem(
                 minLines = 2
             )
         }
+    }
+}
+
+@Composable
+fun LoadingError(){
+    Box(modifier = Modifier.fillMaxWidth()) {
+        Text(
+            modifier = Modifier.align(Alignment.Center),
+            text = "Loading Error"
+        )
+    }
+}
+
+@Composable
+fun EndOfPaginationReachedMessage(){
+    Box(modifier = Modifier.fillMaxWidth()) {
+        Text(
+            modifier = Modifier.align(Alignment.Center),
+            text = "End is reached"
+        )
     }
 }
 
