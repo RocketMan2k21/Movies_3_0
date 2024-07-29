@@ -1,6 +1,6 @@
 package com.romahduda.movies30.data.api
 
-import com.romahduda.data.model.MovieResponseDto
+import com.romahduda.movies30.data.model.MovieResponseDto
 import com.romahduda.movies30.data.model.MovieDetailsDto
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -11,10 +11,11 @@ interface MoviesApi {
     suspend fun getMoviesByPage(
         @Query("page") page: Int,
         @Query("api_key") apiKey: String
-    ) : MovieResponseDto
+    ): MovieResponseDto
 
     @GET("movie/{movie_id}")
     suspend fun getMovieById(
         @Path("movie_id") movieId: Int,
-        @Query("api_key") apiKey: String) : MovieDetailsDto
+        @Query("api_key") apiKey: String
+    ): MovieDetailsDto
 }
