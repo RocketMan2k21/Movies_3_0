@@ -2,8 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
-    id("com.google.dagger.hilt.android")
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.dagger.hilt.android)
+    alias(libs.plugins.google.devtools.ksp)
 }
 
 android {
@@ -47,9 +47,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    testOptions {
-        unitTests.isReturnDefaultValues = true
-    }
     buildFeatures {
         compose = true
     }
@@ -87,41 +84,38 @@ dependencies {
     // Dagger - Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     // Glide
-    implementation (libs.glide)
-    ksp (libs.compiler)
+    implementation(libs.glide)
+    ksp(libs.compiler)
 
     // Retrofit
-    implementation (libs.retrofit)
-    implementation (libs.converter.gson)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
     // Paging
     implementation(libs.androidx.paging.runtime.ktx)
-    implementation(platform("androidx.compose:compose-bom:2024.06.00"))
-    implementation("androidx.paging:paging-compose:3.3.0-alpha05")
+    implementation(libs.androidx.paging.compose)
 
     // Coil
-    implementation("io.coil-kt:coil-compose:2.7.0")
+    implementation(libs.coil.compose)
 
     // Navigation
     implementation(libs.androidx.navigation.compose)
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.0-M2")
-    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0-RC")
+    testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.kotlinx.coroutines.test)
 
     testImplementation(kotlin("test"))
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:2.0.0")
+    testImplementation(libs.kotlin.test.junit)
 
-    testImplementation("app.cash.turbine:turbine:0.7.0")
-    testImplementation("io.mockk:mockk:1.12.3")
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0-RC")
+    testImplementation(libs.androidx.core.testing)
 
-    testImplementation ("androidx.arch.core:core-testing:2.1.0")
-
-    androidTestImplementation("androidx.navigation:navigation-testing:2.7.7")
+    androidTestImplementation(libs.androidx.navigation.testing)
 
 }
 

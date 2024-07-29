@@ -1,7 +1,6 @@
-package com.romahduda.movies30
+package com.romahduda.movies30.util
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.romahduda.movies30.data.api.MoviesApi
 import com.romahduda.movies30.data.model.MovieDto
 import retrofit2.HttpException
 

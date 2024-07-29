@@ -14,9 +14,9 @@ class DtoConversionTest {
         val movieDto = MovieDto(
             id = 1,
             title = "Test Movie",
-            release_date = "2024-07-25",
-            vote_average = 8.5,
-            poster_path = "/testPosterPath.jpg"
+            releaseDate = "2024-07-25",
+            voteAverage = 8.5,
+            posterPath = "/testPosterPath.jpg"
         )
 
         val movie = movieDto.toMovie()
@@ -35,7 +35,7 @@ class DtoConversionTest {
             title = "Test Movie",
             release_date = "2024-07-25",
             vote_average = 8.5,
-            poster_path = "/testPosterPath.jpg",
+            posterPath = "/testPosterPath.jpg",
             overview = "Test Overview",
             runtime = 120,
             budget = 100000000,

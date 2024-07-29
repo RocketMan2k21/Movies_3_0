@@ -38,14 +38,14 @@ object AppModule {
     fun provideRepoImpl(
         moviesApi: MoviesApi,
         pager: Pager<Int, MovieDto>
-        ): MovieRepo = MovieRepoImpl(moviesApi, pager)
+    ): MovieRepo = MovieRepoImpl(moviesApi, pager)
 
     @Provides
     @Singleton
     fun provideMoviePager(moviesApi: MoviesApi): Pager<Int, MovieDto> {
         return Pager(
             config = PagingConfig(pageSize = 20)
-        ){
+        ) {
             MoviePagingSource(moviesApi)
         }
     }

@@ -16,15 +16,14 @@ fun NavGraphBuilder.movieDetailsComposable(
     sharedViewModel: MovieViewModel
 ) {
     composable(
-        route = MOVIES_DETAILS_SCREEN,
-        arguments = listOf(navArgument(MOVIES_ARGUMENT_KEY){
+        route = MOVIES_DETAILS_SCREEN, arguments = listOf(navArgument(MOVIES_ARGUMENT_KEY) {
             type = NavType.IntType
         })
-    ){ navBackStackEntry ->
-        val movieId = navBackStackEntry.arguments!!.getInt(MOVIES_ARGUMENT_KEY)
+    ) { navBackStackEntry ->
+        val movieId = navBackStackEntry.arguments?.getInt(MOVIES_ARGUMENT_KEY)
 
         LaunchedEffect(movieId) {
-            sharedViewModel.getMovieById(movieId = movieId)
+            movieId?.let { sharedViewModel.getMovieById(movieId = it) }
         }
 
         val selectedMovie by sharedViewModel.movieDetails.collectAsState()
@@ -32,6 +31,5 @@ fun NavGraphBuilder.movieDetailsComposable(
         MovieDetailsScreen(
             movie = selectedMovie
         )
-
     }
 }

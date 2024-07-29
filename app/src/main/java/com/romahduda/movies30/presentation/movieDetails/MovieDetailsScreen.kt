@@ -14,26 +14,31 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.romahduda.movies30.R
 import com.romahduda.movies30.domain.MovieDetails
 import com.romahduda.movies30.util.Constants.IMAGE_TMDB_BASE_URL
 import com.romahduda.movies30.util.RequestState
 
 @Composable
 fun MovieDetailsScreen(
-    movie: RequestState<MovieDetails>
-){
-    Box(modifier = Modifier
-        .fillMaxSize()
+    movie: RequestState<MovieDetails>,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .fillMaxSize()
     ) {
         if (movie is RequestState.Success) {
             Log.i("MovieDetailsScreen", "Selected Movie: $movie")
-            DisplayMovie(movie.data)
+            DisplayMovie(movie.data, modifier)
         }
         if (movie is RequestState.Error) {
-            ErrorContent()
+            ErrorContent(modifier)
         }
         if (movie is RequestState.Loading) {
             CircularProgressIndicator(
@@ -44,95 +49,102 @@ fun MovieDetailsScreen(
 }
 
 @Composable
-fun ErrorContent(){
-    Box(modifier = Modifier.fillMaxSize()){
+fun ErrorContent(
+    modifier: Modifier = Modifier
+) {
+    Box(modifier = modifier.fillMaxSize()) {
         Text(
-            text = "Error loading movie data. Check you network connection",
+            text = stringResource(id = R.string.error_loading_specificMovie),
+            textAlign = TextAlign.Center,
             modifier = Modifier.align(Alignment.Center)
         )
     }
 }
 
 @Composable
-private fun DisplayMovie(movie: MovieDetails) {
+private fun DisplayMovie(
+    movie: MovieDetails,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+    ) {
+        AsyncImage(
+            model = IMAGE_TMDB_BASE_URL + movie.posterPath,
+            contentDescription = movie.title,
+            modifier = Modifier
+                .weight(2f)
+                .fillMaxWidth(),
+            contentScale = ContentScale.Crop
+        )
         Column(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
+                .weight(1f)
+                .padding(8.dp)
+                .verticalScroll(rememberScrollState())
         ) {
-            AsyncImage(
-                model = IMAGE_TMDB_BASE_URL + movie.posterPath,
-                contentDescription = movie.title,
-                modifier = Modifier
-                    .weight(2f)
-                    .fillMaxWidth(),
-                contentScale = ContentScale.Crop
+            Text(
+                text = movie.title,
+                modifier = Modifier.padding(bottom = 8.dp)
             )
-            Column (
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-                    .padding(8.dp)
-                    .verticalScroll(rememberScrollState())
-            ){
-                Text(
-                    text = movie.title,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-                Text(
-                    text = movie.tagline,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-                Text(
-                    text = "Rating: ${movie.voteAverage}",
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-                Text(
-                    text = "${movie.releaseDate}",
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-                Text(
-                    text = "Budget: \$${movie.budget}",
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-                Text(
-                    text = "Runtime: ${movie.runtime} minutes",
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-                Text(
-                    text = "Revenue: \$${movie.revenue}",
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-                Text(
-                    text = movie.overview,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-            }
-
+            Text(
+                text = movie.tagline,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            Text(
+                text = "Rating: ${movie.voteAverage}",
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            Text(
+                text = "${movie.releaseDate}",
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            Text(
+                text = "Budget: \$${movie.budget}",
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            Text(
+                text = "Runtime: ${movie.runtime} minutes",
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            Text(
+                text = "Revenue: \$${movie.revenue}",
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            Text(
+                text = movie.overview,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
         }
+
+    }
 }
 
 @Preview
 @Composable
-fun PreviewMovieDetails(){
+fun PreviewMovieDetails() {
     MovieDetailsScreen(
-        movie = RequestState.Success(MovieDetails(
-            id = 1,
-            posterPath = "poster path",
-            releaseDate = "2024-24-24",
-            title = "Bad Boys",
-            voteAverage = 10.0,
-            overview = "Some cool movie",
-            runtime = 999,
-            budget = 99999,
-            revenue = 888888,
-            tagline = "Bad boys, bad boys"
-        )
+        movie = RequestState.Success(
+            MovieDetails(
+                id = 1,
+                posterPath = "poster path",
+                releaseDate = "2024-24-24",
+                title = "Bad Boys",
+                voteAverage = 10.0,
+                overview = "Some cool movie",
+                runtime = 999,
+                budget = 99999,
+                revenue = 888888,
+                tagline = "Bad boys, bad boys"
+            )
         )
     )
 }
 
 @Preview
 @Composable
-fun PreviewError(){
+fun PreviewError() {
     ErrorContent()
 }

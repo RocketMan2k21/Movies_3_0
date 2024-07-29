@@ -6,6 +6,8 @@ import androidx.paging.PagingState
 import androidx.paging.testing.TestPager
 import com.romahduda.movies30.data.api.MoviePagingSource
 import com.romahduda.movies30.data.model.MovieDto
+import com.romahduda.movies30.util.FakeMovieApi
+import com.romahduda.movies30.util.MovieFactory
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.test.runTest
@@ -68,9 +70,9 @@ class MovieSourcePagingTest {
             MovieDto(
                 id = index,
                 title = movie.title,
-                poster_path = movie.poster_path,
-                release_date = movie.release_date,
-                vote_average = movie.vote_average
+                posterPath = movie.posterPath,
+                releaseDate = movie.releaseDate,
+                voteAverage = movie.voteAverage
             )
         }
 
