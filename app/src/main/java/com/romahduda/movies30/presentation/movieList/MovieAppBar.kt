@@ -16,7 +16,7 @@ fun MovieGridAppBar() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DefaultListAppBar(
-){
+) {
     TopAppBar(
         title = {
             Text(
@@ -33,6 +33,6 @@ fun DefaultListAppBar(
 
 @Composable
 @Preview
-private fun DefaultListAppBarPreview(){
+private fun DefaultListAppBarPreview() {
     DefaultListAppBar()
 }

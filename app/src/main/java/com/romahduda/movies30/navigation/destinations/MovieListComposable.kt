@@ -6,18 +6,16 @@ import com.romahduda.movies30.presentation.viewmodels.MovieViewModel
 import com.romahduda.movies30.presentation.movieList.MovieScreen
 import com.romahduda.movies30.util.Constants.MOVIES_SCREEN
 
-fun NavGraphBuilder.movieListComposable (
+fun NavGraphBuilder.movieListComposable(
     navigateToMoviesDetailsScreen: (movieId: Int) -> Unit,
     sharedViewModel: MovieViewModel
 ) {
     composable(
         route = MOVIES_SCREEN
-    ){
+    ) {
         MovieScreen(
             navigateToMoviesDetailsScreen = navigateToMoviesDetailsScreen,
             sharedViewModel = sharedViewModel
         )
     }
-
-
 }

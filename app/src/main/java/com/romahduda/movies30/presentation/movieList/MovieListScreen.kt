@@ -7,42 +7,47 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.romahduda.movies30.R
 import com.romahduda.movies30.presentation.viewmodels.MovieViewModel
 
 
 @Composable
 fun MovieScreen(
     navigateToMoviesDetailsScreen: (Int) -> Unit,
-    sharedViewModel : MovieViewModel
+    sharedViewModel: MovieViewModel,
+    modifier: Modifier = Modifier
 ) {
     val movies = sharedViewModel.moviesPagingFlow.collectAsLazyPagingItems()
 
-    Box(modifier = Modifier.fillMaxSize()){
-        if(movies.loadState.refresh is LoadState.Loading){
+    Box(modifier = modifier.fillMaxSize()) {
+        if (movies.loadState.refresh is LoadState.Loading) {
             CircularProgressIndicator(
                 modifier = Modifier.align(Alignment.Center)
             )
         }
-        if(movies.loadState.refresh is LoadState.Error) {
-            ErrorNetworkContent()
-        }
-        else{
+        if (movies.loadState.refresh is LoadState.Error) {
+            ErrorNetworkContent(modifier = modifier)
+        } else {
             GridContent(
-                    movies = movies,
-                    navigateToMoviesDetailsScreen = navigateToMoviesDetailsScreen
-                )
-            }
+                movies = movies,
+                navigateToMoviesDetailsScreen = navigateToMoviesDetailsScreen,
+                modifier = modifier
+            )
         }
+    }
 }
 
 @Composable
-fun ErrorNetworkContent(){
-    Box(modifier = Modifier.fillMaxSize()){
+fun ErrorNetworkContent(
+    modifier: Modifier = Modifier
+) {
+    Box(modifier = modifier.fillMaxSize()) {
         Text(
             modifier = Modifier.align(Alignment.Center),
-            text = "Connection Error. Check Your Network Settings"
+            text = stringResource(id = R.string.error_loading_movieList)
         )
     }
 }
