@@ -1,10 +1,9 @@
-package com.romahduda.movies30
+package com.romahduda.movies30.util
 
-import com.romahduda.data.model.MovieResponseDto
+import com.romahduda.movies30.data.model.MovieResponseDto
 import com.romahduda.movies30.data.api.MoviesApi
 import com.romahduda.movies30.data.model.MovieDetailsDto
 import com.romahduda.movies30.data.model.MovieDto
-import okhttp3.RequestBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.HttpException
 import retrofit2.Response

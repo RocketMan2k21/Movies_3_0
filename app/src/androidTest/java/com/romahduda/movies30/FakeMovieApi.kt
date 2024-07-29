@@ -1,6 +1,6 @@
 package com.romahduda.movies30
 
-import com.romahduda.data.model.MovieResponseDto
+import com.romahduda.movies30.data.model.MovieResponseDto
 import com.romahduda.movies30.data.api.MoviesApi
 import com.romahduda.movies30.data.model.MovieDetailsDto
 import com.romahduda.movies30.data.model.MovieDto

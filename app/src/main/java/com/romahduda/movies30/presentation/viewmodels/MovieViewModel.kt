@@ -26,21 +26,20 @@ class MovieViewModel @Inject constructor(
     val movieDetails: StateFlow<RequestState<MovieDetails>> = _movieDetails
 
     val moviesPagingFlow: Flow<PagingData<Movie>> = movieRepo
-       .getPagingMovieFlow()
-       .cachedIn(viewModelScope)
+        .getPagingMovieFlow()
+        .cachedIn(viewModelScope)
 
     fun getMovieById(movieId: Int) {
         Log.i("MovieViewModel", "getMovieById() invoked...")
         _movieDetails.value = RequestState.Loading
         viewModelScope.launch {
-                movieRepo.getMovieById(movieId)
-                    .catch { e ->
-                        _movieDetails.value = RequestState.Error(e)
-                    }
-                    .collect{
-                        _movieDetails.value = RequestState.Success(it)
-                    }
-            }
+            movieRepo.getMovieById(movieId)
+                .catch { e ->
+                    _movieDetails.value = RequestState.Error(e)
+                }
+                .collect {
+                    _movieDetails.value = RequestState.Success(it)
+                }
+        }
     }
-
 }
