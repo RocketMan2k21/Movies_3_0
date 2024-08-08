@@ -3,24 +3,24 @@ package com.romahduda.movies30
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.PagingData
 import androidx.paging.PagingSource
-import androidx.paging.map
 import androidx.paging.testing.TestPager
+import androidx.paging.testing.asSnapshot
 import com.romahduda.movies30.data.model.MovieDto
 import com.romahduda.movies30.data.model.toMovie
 import com.romahduda.movies30.data.model.toMovieDetails
 import com.romahduda.movies30.data.repository.MovieRepoImpl
-import com.romahduda.movies30.domain.Movie
+import com.romahduda.movies30.util.FakeMovieApi
+import com.romahduda.movies30.util.FakeMoviePagingSource
+import com.romahduda.movies30.util.MainCoroutineScopeRule
+import com.romahduda.movies30.util.MovieFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -29,9 +29,11 @@ import retrofit2.HttpException
 class MovieRepoImplTest {
 
     @get:Rule
-    val coroutineScope =  MainCoroutineRule()
+    val mainRule = MainCoroutineScopeRule()
+
     @get:Rule
-    val instantTaskExecutorRule = InstantTaskExecutorRule()
+    val taskExecutorRule = InstantTaskExecutorRule()
+
 
     private val movieFactory = MovieFactory()
 
@@ -49,8 +51,6 @@ class MovieRepoImplTest {
 
     private lateinit var pagingSource: PagingSource<Int, MovieDto>
 
-    private lateinit var pager : Pager<Int, MovieDto>
-
     @Before
     fun setup() {
         fakeApi = FakeMovieApi().apply {
@@ -60,21 +60,27 @@ class MovieRepoImplTest {
 
         pagingSource = FakeMoviePagingSource(mockMovies)
 
-        pager = Pager(
+        val fakePager = Pager(
             config = PagingConfig(pageSize = 20),
-            pagingSourceFactory = {pagingSource}
+            pagingSourceFactory = { pagingSource }
         )
 
-        movieRepo = MovieRepoImpl(fakeApi, pager)
+        movieRepo = MovieRepoImpl(fakeApi, fakePager)
+
     }
 
     @ExperimentalCoroutinesApi
     @Test
-    fun getPagingMovieFlow_success() = runTest {
-        val movies = movieRepo.getPagingMovieFlow().toList()
-        advanceUntilIdle()
-        assertEquals(mockMovies.size, movies.size)
-        assertEquals(mockMovies.map { it.toMovie() }, movies)
+    fun `should return list of movies when getPagingMovieFlow is called`() = runTest {
+
+        val movies = movieRepo.getPagingMovieFlow().asSnapshot()
+
+        assertEquals(
+            mockMovies.map { movie ->
+                movie.toMovie()
+            },
+            movies
+        )
     }
 
     @ExperimentalCoroutinesApi
@@ -108,5 +114,9 @@ class MovieRepoImplTest {
             // Expected exception
         }
     }
+
+
 }
+
+
 

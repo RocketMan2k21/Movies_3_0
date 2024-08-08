@@ -1,5 +1,7 @@
 package com.romahduda.movies30
 
+import com.romahduda.movies30.util.FakeMovieApi
+import com.romahduda.movies30.util.MovieFactory
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.junit.jupiter.api.assertThrows

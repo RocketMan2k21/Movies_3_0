@@ -1,14 +1,10 @@
 package com.romahduda.movies30.data.api
 
-import com.romahduda.movies30.data.model.MovieDto
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.romahduda.movies30.BuildConfig
-import retrofit2.HttpException
-import java.io.IOException
+import com.romahduda.movies30.data.model.MovieDto
 
-@OptIn(ExperimentalPagingApi::class)
 class MoviePagingSource(
     private val moviesApi: MoviesApi
 ) : PagingSource<Int, MovieDto>() {
@@ -18,6 +14,7 @@ class MoviePagingSource(
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
+
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieDto> {
         try {
             val nextPageNumber = params.key ?: 1
